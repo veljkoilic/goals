@@ -1,12 +1,14 @@
 const express = require('express')
 const { getGoals, getGoal, setGoal, updateGoal, deleteGoal } = require('../controllers/goalController')
 const router = express.Router()
+const {protect} =require('../middleware/authMiddleware')
 
-router.get('/', getGoals)
-router.get('/:id', getGoal)
-router.post('/', setGoal)
-router.put('/:id', updateGoal)
-router.delete('/:id', deleteGoal)
+
+router.get('/', protect, getGoals)
+router.get('/:id', protect, getGoal)
+router.post('/', protect, setGoal)
+router.put('/:id', protect, updateGoal)
+router.delete('/:id', protect, deleteGoal)
 
 //Less lines but also less readable (For me)
 // router.route('/').get(getGoals).post(setGoal)
